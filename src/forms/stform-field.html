@@ -1,0 +1,17 @@
+<div class="mb-3">
+    <label
+      class="form-label mb-1"
+      [for]="key()"
+      [ngClass]="options().props?.labelClass"
+      [innerHTML]="(options().props?.label ?? key()) + (isRequired() ? ' *' : '')"
+    ></label>
+    <ng-container *ngComponentOutlet="typeComponent(); inputs: { key: key(), control: control(), options: options() }" />
+    @if (control().touched) {
+      <div class="mt-1">
+        @for (error of errors(); track $index) {
+          <div class="text-danger">{{ error }}</div>
+        }
+      </div>
+    }
+  </div>
+  

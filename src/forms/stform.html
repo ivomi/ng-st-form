@@ -1,0 +1,18 @@
+<form [formGroup]="form()" class="needs-validation" novalidate>
+  @for (group of groupedControls(); track $index) {
+    <div [ngClass]="group.groupClass">
+      @for (field of group.controls; track $index) {
+        @if (field.type === 'group') {
+          <st-form [form]="field.control" [wrapper]="wrapper()" />
+        } @else if (field.type === 'array') {
+          <!-- TODO -->
+        } @else {
+          <ng-container
+            *ngComponentOutlet="wrapperComponent(); inputs: { key: field.key, control: field.control, options: field.options }"
+          />
+        }
+      }
+    </div>
+  }
+  <ng-content></ng-content>
+</form>
